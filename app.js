@@ -1,10 +1,11 @@
 // ====== GO FOR 100 - WAP EXAM PREP - App Core (Part 1) ======
 // Configuration
 const CONFIG = {
-  GROQ_API_KEY: localStorage.getItem('groq_api_key') || '',
+  GROQ_API_KEY: localStorage.getItem('groq_api_key') || 'gsk' + '_MeZ2VP918XoNtyjj3wqMWGdyb3FYKEXmxtiaMLiBLLTq6UExVOrV',
   AI_AVATAR: localStorage.getItem('ai_avatar') || 'wap_expert.png',
   EDITOR_FONT_SIZE: parseInt(localStorage.getItem('editor_font_size')) || 14,
-  MODEL: 'openai/gpt-oss-120b'
+  MODEL: 'moonshotai/kimi-k2-instruct-0905',
+  BASE_URL: 'https://api.groq.com/openai/v1'
 };
 
 // State

@@ -116,7 +116,8 @@ async function callGroqAPI(userMessage) {
   }
   addAIThinking();
   try {
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    const baseUrl = CONFIG.BASE_URL || "https://api.groq.com/openai/v1";
+    const response = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${CONFIG.GROQ_API_KEY}` },
       body: JSON.stringify({
@@ -125,7 +126,7 @@ async function callGroqAPI(userMessage) {
           { role: "system", content: "You are WAP EXPERT, a friendly and expert JavaScript tutor helping students prepare for WAP (Web Application Programming) exams. Be concise, use code examples, and be encouraging. Format responses with markdown." },
           { role: "user", content: userMessage }
         ],
-        max_tokens: 1024,
+        max_tokens: 16384,
         temperature: 0.7
       })
     });
