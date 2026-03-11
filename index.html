@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GO FOR 100 – WAP EXAM PREP</title>
+    <meta name="description"
+        content="Interactive coding learning platform to score 100+ in WAP Mid-Sem exam. Practice JavaScript with Monaco Editor, AI tutor, and exam simulator.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <span class="splash-icon">🎯</span>
+                <h1 class="splash-title">GO FOR <span class="accent">100</span></h1>
+                <p class="splash-subtitle">WAP EXAM PREP</p>
+                <p class="made-by">made by <span class="accent">BRAK(codebrak07)</span> & <span class="accent">Krish(krish-kothari)</span></p>
+            </div>
+            <div class="splash-loader">
+                <div class="loader-bar">
+                    <div class="loader-fill"></div>
+                </div>
+                <p class="loader-text">Initializing Editor...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="app hidden">
+        <!-- Top Navigation -->
+        <nav id="topnav" class="topnav">
+            <div class="nav-left">
+                <button id="sidebar-toggle" class="nav-btn" aria-label="Toggle sidebar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="6" x2="21" y2="6" />
+                        <line x1="3" y1="12" x2="21" y2="12" />
+                        <line x1="3" y1="18" x2="21" y2="18" />
+                    </svg>
+                </button>
+                <div class="nav-brand">
+                    <span class="brand-icon">🎯</span>
+                    <span class="brand-text">GO FOR <span class="accent">100</span></span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <button class="nav-tab active" data-view="learn" id="nav-learn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                    </svg>
+                    Learn
+                </button>
+                <button class="nav-tab" data-view="playground" id="nav-playground">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                    Playground
+                </button>
+                <button class="nav-tab" data-view="submissions" id="nav-submissions">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    Submissions
+                </button>
+                <button class="nav-tab" data-view="exam" id="nav-exam">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Exam
+                </button>
+                <button class="nav-tab" data-view="progress" id="nav-progress">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10" />
+                        <line x1="12" y1="20" x2="12" y2="4" />
+                        <line x1="6" y1="20" x2="6" y2="14" />
+                    </svg>
+                    Progress
+                </button>
+            </div>
+            <div class="nav-right">
+                <button id="theme-toggle" class="nav-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg class="icon-moon hidden" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+                <div class="nav-streak">
+                    <span class="streak-icon">🔥</span>
+                    <span id="streak-count" class="streak-count">0</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Layout -->
+        <div class="layout">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h3>📚 Topics</h3>
+                    <div class="sidebar-progress">
+                        <div class="progress-ring-small" id="sidebar-progress-ring"></div>
+                        <span id="sidebar-progress-text">0/21</span>
+                    </div>
+                </div>
+                <div class="sidebar-search">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" id="topic-search" placeholder="Search topics...">
+                </div>
+                <ul id="topic-list" class="topic-list"></ul>
+            </aside>
+
+            <!-- Main Content -->
+            <main id="main-content" class="main-content">
+                <!-- Learn View -->
+                <div id="view-learn" class="view active">
+                    <div id="learn-welcome" class="learn-welcome">
+                        <div class="welcome-hero">
+                            <div class="welcome-particles" id="welcome-particles"></div>
+                            <h1>Welcome to <span class="accent">GO FOR 100</span></h1>
+                            <p class="welcome-desc">Your ultimate WAP exam preparation platform. Master JavaScript from
+                                basics to advanced concepts.</p>
+                            <p class="made-by">made by <span class="accent">BRAK(codebrak07)</span> & <span class="accent">Krish(krish-kothari)</span></p>
+                            <div class="welcome-stats">
+                                <div class="stat-card">
+                                    <span class="stat-number" id="stat-topics">21</span>
+                                    <span class="stat-label">Topics</span>
+                                </div>
+                                <div class="stat-card">
+                                    <span class="stat-number" id="stat-problems">50+</span>
+                                    <span class="stat-label">Problems</span>
+                                </div>
+                                <div class="stat-card">
+                                    <span class="stat-number" id="stat-mcqs">100+</span>
+                                    <span class="stat-label">MCQs</span>
+                                </div>
+                                <div class="stat-card">
+                                    <span class="stat-number" id="stat-exam">1</span>
+                                    <span class="stat-label">Full Exam</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-lg" id="start-learning">
+                                Start Learning
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="learn-content" class="learn-content hidden">
+                        <div class="learn-header">
+                            <button class="btn btn-ghost" id="back-to-topics">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="19" y1="12" x2="5" y2="12" />
+                                    <polyline points="12 19 5 12 12 5" />
+                                </svg>
+                                Back
+                            </button>
+                            <h2 id="learn-topic-title"></h2>
+                            <div class="learn-actions">
+                                <button class="btn btn-outline btn-sm" id="mark-complete">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    Mark Complete
+                                </button>
+                            </div>
+                        </div>
+                        <div class="learn-tabs">
+                            <button class="learn-tab active" data-tab="concept">📖 Concept</button>
+                            <button class="learn-tab" data-tab="notes">📝 Quick Notes</button>
+                            <button class="learn-tab" data-tab="mcq">🎯 MCQ Quiz</button>
+                            <button class="learn-tab" data-tab="output">🔮 Output Prediction</button>
+                            <button class="learn-tab" data-tab="coding">💻 Coding Exercise</button>
+                        </div>
+                        <div id="learn-tab-content" class="learn-tab-content"></div>
+                    </div>
+                </div>
+
+                <!-- Playground View -->
+                <div id="view-playground" class="view">
+                    <div class="playground-layout">
+                        <div class="editor-section">
+                            <div class="editor-toolbar">
+                                <div class="editor-toolbar-left">
+                                    <span class="editor-file-tab active">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
+                                        </svg>
+                                        script.js
+                                    </span>
+                                </div>
+                                <div class="editor-toolbar-right">
+                                    <button class="btn btn-ghost btn-sm" id="btn-reset-code">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <polyline points="1 4 1 10 7 10" />
+                                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                                        </svg>
+                                        Reset
+                                    </button>
+                                    <button class="btn btn-accent btn-sm" id="btn-run-code">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3" />
+                                        </svg>
+                                        Run Code
+                                    </button>
+                                    <button class="btn btn-primary btn-sm" id="btn-submit-code">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <polyline points="20 6 9 17 4 12" />
+                                        </svg>
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="monaco-editor" class="monaco-editor-container"></div>
+                        </div>
+                        <div class="output-section">
+                            <div class="output-tabs">
+                                <button class="output-tab active" data-output="console">Console</button>
+                                <button class="output-tab" data-output="testcases">Test Cases</button>
+                            </div>
+                            <div id="console-output" class="console-output active">
+                                <div class="console-placeholder">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <polyline points="4 17 10 11 4 5" />
+                                        <line x1="12" y1="19" x2="20" y2="19" />
+                                    </svg>
+                                    <span>Run your code to see output here</span>
+                                </div>
+                            </div>
+                            <div id="testcase-output" class="testcase-output">
+                                <div class="console-placeholder">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                    </svg>
+                                    <span>Submit your code to run test cases</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Problem Panel -->
+                    <div id="problem-panel" class="problem-panel hidden">
+                        <div class="problem-panel-header">
+                            <h3 id="problem-title"></h3>
+                            <span id="problem-difficulty" class="difficulty-badge"></span>
+                            <button class="btn btn-ghost btn-sm" id="close-problem-panel">✕</button>
+                        </div>
+                        <div id="problem-description" class="problem-description"></div>
+                    </div>
+                </div>
+
+                <!-- Submissions View -->
+                <div id="view-submissions" class="view">
+                    <div class="submissions-container">
+                        <div class="submissions-header">
+                            <h2>📋 Submission History</h2>
+                            <button class="btn btn-outline btn-sm" id="clear-submissions">Clear All</button>
+                        </div>
+                        <div class="submissions-stats">
+                            <div class="sub-stat">
+                                <span class="sub-stat-val" id="total-submissions">0</span>
+                                <span class="sub-stat-label">Total</span>
+                            </div>
+                            <div class="sub-stat accepted">
+                                <span class="sub-stat-val" id="accepted-submissions">0</span>
+                                <span class="sub-stat-label">Accepted</span>
+                            </div>
+                            <div class="sub-stat wrong">
+                                <span class="sub-stat-val" id="wrong-submissions">0</span>
+                                <span class="sub-stat-label">Wrong</span>
+                            </div>
+                            <div class="sub-stat error">
+                                <span class="sub-stat-val" id="error-submissions">0</span>
+                                <span class="sub-stat-label">Errors</span>
+                            </div>
+                        </div>
+                        <div class="submissions-table-wrap">
+                            <table class="submissions-table" id="submissions-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Problem</th>
+                                        <th>Status</th>
+                                        <th>Runtime</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="submissions-tbody"></tbody>
+                            </table>
+                            <div id="no-submissions" class="no-data">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                </svg>
+                                <p>No submissions yet. Start coding!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exam View -->
+                <div id="view-exam" class="view">
+                    <div id="exam-intro" class="exam-intro">
+                        <div class="exam-card">
+                            <div class="exam-card-icon">📝</div>
+                            <h2>Final Exam Simulator</h2>
+                            <p>Simulate a real WAP mid-sem exam environment.</p>
+                            <div class="exam-breakdown">
+                                <div class="exam-break-item">
+                                    <span class="break-num">20</span>
+                                    <span class="break-label">MCQs</span>
+                                </div>
+                                <div class="exam-break-item">
+                                    <span class="break-num">10</span>
+                                    <span class="break-label">Output Qs</span>
+                                </div>
+                                <div class="exam-break-item">
+                                    <span class="break-num">13</span>
+                                    <span class="break-label">Coding</span>
+                                </div>
+                            </div>
+                            <div class="exam-info">
+                                <p>⏱️ Time Limit: <strong>90 minutes</strong></p>
+                                <p>📊 Total Marks: <strong>100</strong></p>
+                            </div>
+                            <button class="btn btn-primary btn-lg" id="start-exam">
+                                🚀 Start Exam
+                            </button>
+                            <div id="prev-exam-results" class="prev-results hidden">
+                                <h4>Previous Results</h4>
+                                <div id="prev-results-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="exam-active" class="exam-active hidden">
+                        <div class="exam-topbar">
+                            <div class="exam-topbar-left">
+                                <span class="exam-label">WAP Mid-Sem Exam</span>
+                                <span id="exam-question-counter" class="exam-q-counter">Q 1/43</span>
+                            </div>
+                            <div class="exam-topbar-center">
+                                <div class="exam-timer" id="exam-timer">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <polyline points="12 6 12 12 16 14" />
+                                    </svg>
+                                    <span id="exam-time-display">90:00</span>
+                                </div>
+                            </div>
+                            <div class="exam-topbar-right">
+                                <button class="btn btn-outline btn-sm" id="exam-submit-btn">Submit Exam</button>
+                            </div>
+                        </div>
+                        <div class="exam-layout">
+                            <div class="exam-nav-panel">
+                                <h4>Question Navigator</h4>
+                                <div id="exam-nav-grid" class="exam-nav-grid"></div>
+                                <div class="exam-legend">
+                                    <span class="legend-item"><span class="legend-dot answered"></span>Answered</span>
+                                    <span class="legend-item"><span class="legend-dot current"></span>Current</span>
+                                    <span class="legend-item"><span
+                                            class="legend-dot unanswered"></span>Unanswered</span>
+                                </div>
+                            </div>
+                            <div class="exam-question-panel">
+                                <div id="exam-question-content"></div>
+                                <div class="exam-question-nav">
+                                    <button class="btn btn-outline" id="exam-prev-q">← Previous</button>
+                                    <button class="btn btn-primary" id="exam-next-q">Next →</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="exam-results" class="exam-results hidden">
+                        <div class="results-card">
+                            <h2>📊 Exam Results</h2>
+                            <div class="results-score-circle" id="results-score-circle">
+                                <svg viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="54" fill="none" stroke="var(--border)"
+                                        stroke-width="8" />
+                                    <circle id="score-arc" cx="60" cy="60" r="54" fill="none" stroke="var(--accent)"
+                                        stroke-width="8" stroke-dasharray="339.292" stroke-dashoffset="339.292"
+                                        stroke-linecap="round" transform="rotate(-90 60 60)" />
+                                </svg>
+                                <div class="score-text">
+                                    <span id="result-score" class="score-num">0</span>
+                                    <span class="score-total">/100</span>
+                                </div>
+                            </div>
+                            <div class="results-breakdown">
+                                <div class="rb-item"><span>MCQs</span><span id="rb-mcq">0/20</span></div>
+                                <div class="rb-item"><span>Output Questions</span><span id="rb-output">0/10</span></div>
+                                <div class="rb-item"><span>Coding Problems</span><span id="rb-coding">0/13</span></div>
+                            </div>
+                            <div class="results-actions">
+                                <button class="btn btn-primary" id="retake-exam">Retake Exam</button>
+                                <button class="btn btn-outline" id="review-exam">Review Answers</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress View -->
+                <div id="view-progress" class="view">
+                    <div class="progress-container">
+                        <h2>📈 Your Progress</h2>
+                        <div class="progress-overview">
+                            <div class="progress-card">
+                                <div class="progress-card-header">Overall Completion</div>
+                                <div class="progress-circle-large">
+                                    <svg viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="54" fill="none" stroke="var(--border)"
+                                            stroke-width="8" />
+                                        <circle id="overall-progress-arc" cx="60" cy="60" r="54" fill="none"
+                                            stroke="var(--accent)" stroke-width="8" stroke-dasharray="339.292"
+                                            stroke-dashoffset="339.292" stroke-linecap="round"
+                                            transform="rotate(-90 60 60)" />
+                                    </svg>
+                                    <span id="overall-pct" class="progress-pct-text">0%</span>
+                                </div>
+                            </div>
+                            <div class="progress-card">
+                                <div class="progress-card-header">Topics Completed</div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar">
+                                        <div id="topics-progress-bar" class="progress-fill" style="width:0%"></div>
+                                    </div>
+                                    <span id="topics-progress-text">0/21</span>
+                                </div>
+                            </div>
+                            <div class="progress-card">
+                                <div class="progress-card-header">Problems Solved</div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar">
+                                        <div id="problems-progress-bar" class="progress-fill accent2" style="width:0%">
+                                        </div>
+                                    </div>
+                                    <span id="problems-progress-text">0</span>
+                                </div>
+                            </div>
+                            <div class="progress-card">
+                                <div class="progress-card-header">MCQ Score Avg</div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar">
+                                        <div id="mcq-progress-bar" class="progress-fill accent3" style="width:0%"></div>
+                                    </div>
+                                    <span id="mcq-progress-text">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress-charts">
+                            <div class="chart-card">
+                                <h3>Activity Heatmap</h3>
+                                <canvas id="activity-chart"></canvas>
+                            </div>
+                            <div class="chart-card">
+                                <h3>Topic Mastery</h3>
+                                <canvas id="mastery-chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="badges-section">
+                            <h3>🏆 Achievement Badges</h3>
+                            <div id="badges-grid" class="badges-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- AI Assistant - WAP EXPERT -->
+    <div id="ai-assistant" class="ai-assistant">
+        <button id="ai-toggle" class="ai-toggle" aria-label="Open AI Assistant">
+            <img id="ai-avatar-btn"
+                src="wap_expert.png" alt="WAP EXPERT AI"
+                class="ai-avatar-small">
+            <span class="ai-badge" id="ai-badge">1</span>
+        </button>
+        <div id="ai-panel" class="ai-panel hidden">
+            <div class="ai-panel-header">
+                <div class="ai-header-left">
+                    <img id="ai-avatar-header"
+                        src="wap_expert.png" alt="WAP EXPERT"
+                        class="ai-avatar-medium">
+                    <div>
+                        <h4>WAP EXPERT</h4>
+                        <span class="ai-status">AI Coding Mentor</span>
+                    </div>
+                </div>
+                <div class="ai-header-right">
+                    <button class="btn btn-ghost btn-sm" id="ai-clear">Clear</button>
+                    <button class="btn btn-ghost btn-sm" id="ai-close">✕</button>
+                </div>
+            </div>
+            <div id="ai-messages" class="ai-messages">
+                <div class="ai-message assistant">
+                    <img src="wap_expert.png" alt="WAP EXPERT"
+                        class="ai-msg-avatar">
+                    <div class="ai-msg-content">
+                        <p>Hey! I'm <strong>WAP EXPERT</strong>, your AI coding mentor. 👋</p>
+                        <p>I can help you with:</p>
+                        <ul>
+                            <li>🔍 Explaining JavaScript concepts</li>
+                            <li>🐛 Debugging your code</li>
+                            <li>📝 WAP exam preparation</li>
+                            <li>💡 Coding tips & tricks</li>
+                        </ul>
+                        <p>Try clicking the buttons below or just ask me anything!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-quick-actions">
+                <button class="ai-quick-btn" data-action="explain">🔍 Explain My Code</button>
+                <button class="ai-quick-btn" data-action="debug">🐛 Debug My Code</button>
+                <button class="ai-quick-btn" data-action="optimize">⚡ Optimize</button>
+                <button class="ai-quick-btn" data-action="hint">💡 Give Hint</button>
+            </div>
+            <div class="ai-input-area">
+                <textarea id="ai-input" placeholder="Ask WAP EXPERT anything..." rows="1"></textarea>
+                <button id="ai-send" class="ai-send-btn" aria-label="Send message">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚙️ Settings</h3>
+                <button class="btn btn-ghost btn-sm modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>Groq API Key</label>
+                    <input type="password" id="setting-api-key" placeholder="Enter your Groq API key">
+                    <small>Get your key at <a href="https://console.groq.com"
+                            target="_blank">console.groq.com</a></small>
+                </div>
+                <div class="setting-group">
+                    <label>AI Avatar URL</label>
+                    <input type="text" id="setting-avatar-url" placeholder="Paste avatar image URL">
+                </div>
+                <div class="setting-group">
+                    <label>Editor Font Size</label>
+                    <input type="range" id="setting-font-size" min="12" max="24" value="14">
+                    <span id="font-size-display">14px</span>
+                </div>
+                <button class="btn btn-primary" id="save-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script src="app2.js"></script>
+</body>
+
+</html>
