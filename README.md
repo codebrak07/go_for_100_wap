@@ -104,15 +104,16 @@ Users can personalize their learning experience:
 
 ## 📂 Project Structure
 
-
+```
 go_for_100_wap/
 │
-├── index.html # Main platform interface
-├── styles.css # UI styling
-├── app.js # Core application logic
-├── app2.js # Additional features
-├── data.js # Question & topic data
-└── wap_expert.png # AI avatar / assets
+├── index.html        # Main platform interface
+├── styles.css        # UI styling
+├── app.js            # Core application logic
+├── app2.js           # Additional features
+├── data.js           # Question & topic data
+└── wap_expert.png    # AI avatar / assets
+```
 
 
 ---
