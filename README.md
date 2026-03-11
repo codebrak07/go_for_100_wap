@@ -102,10 +102,10 @@ Users can personalize their learning experience:
 
 ---
 
-# 📂 Project Structure
+## 📂 Project Structure
 
 
-go_for_100_wap
+go_for_100_wap/
 │
 ├── index.html # Main platform interface
 ├── styles.css # UI styling
